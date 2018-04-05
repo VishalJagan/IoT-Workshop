@@ -175,14 +175,15 @@ void changeOLED(String inputData){
     if(inputData[q] != ','){
       dataToSet += inputData[q];
     }else{
+
       //Serial.println("REMOVED A COMMA");
     }
   }
   //Serial.println(inputData);
   //Serial.println(dataToSet);
   for(int i=0; i < dataToSet.length(); i++){
-      int xCoord = i / 32;
-      int yCoord = i - yCoord;
+      int yCoord = i / 32;
+      int xCoord = i - yCoord;
     if(dataToSet[i] == 'H'){
       display.drawPixel(xCoord, yCoord,1);
     }else{
