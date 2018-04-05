@@ -1,0 +1,104 @@
+<!DOCTYPE>
+
+<html>
+     <head>
+
+     	<title>Designhub IoT Workshop</title>
+
+           <script>
+            window.location.href += "#";
+           		//Resolution of the Feather M0's display shield goes here
+           		var numRows = 128;
+           		var numCols = 32;
+              
+
+                function printBtn() {
+
+
+
+                    for (var i = 0; i < numRows; i++) {
+
+                    	for(var j = 0; j < numCols; j++){
+
+						   var btn = document.createElement("button");
+						   var btnStr = i + "," + j;
+						   var t = document.createTextNode("");
+	                       btn.appendChild(t);
+	                       btn.style.backgroundColor = "#000000";
+	                       btn.id = btnStr;
+	                       btn.value = '0';
+                         //alert("Adding ID ->" + btn.id);
+	                       //Javascript workaround to pass variable
+	                       try{throw btn.id}
+	                       catch(theId){
+	                       btn.addEventListener('click', function(){pixelFlip(theId);}); //Setup clicking a button to fire our function below	
+	                       }
+						             
+						   //btn.addEventListener("click", pixelFlip);
+	                       document.body.appendChild(btn);
+
+                    	}
+                       document.write("<br>"); //Separate Rows and Cols
+                    }
+
+                document.write("<br><br>");
+
+               //These are for the top "Send" button
+               var button = document.createElement("button");
+                button.innerHTML = "Send";
+
+                // 2. Append somewhere
+                var body = document.getElementsByTagName("body")[0];
+                body.appendChild(button);
+
+                // 3. Add event handler
+                button.value = '0'; //So it's not sent over
+                button.addEventListener ("click", getPixelState);
+                
+                }
+
+                function pixelFlip(btnObj){ //Gets the button ID and flips the pixel color onClick
+                	var element = document.getElementById(btnObj);
+                	var currentColor = element.style.backgroundColor;
+                	if(currentColor == "rgb(0, 0, 0)") //If color is white
+                	{
+                		document.getElementById(btnObj).style.backgroundColor = "rgb(255, 255, 255)"; //Make it black
+                    document.getElementById(btnObj).value = '1';
+                	}
+                	else
+                	{
+                		document.getElementById(btnObj).style.backgroundColor = "rgb(0, 0, 0)"; //Set it white
+                    document.getElementById(btnObj).value = '0';
+                	}
+                  
+                }
+
+                function getPixelState(){ //Return a string representing the state of the black/white pixels with 0/1s
+                  var pixelString = []; //Fill this with 0/1 for black/white pixels
+                  var listOfButtons = document.getElementsByTagName('button');
+                  for (var i = 0; i < listOfButtons.length; i++) {
+                    
+                    if(listOfButtons[i].value == '0'){
+                      pixelString[i] = '0';
+                    }
+                  else
+                  {
+
+                    pixelString[i] = '1';
+                  }
+
+                  
+                }
+                pixelString = '#' + pixelString.toString();
+                //alert(window.location.href.split('#')[0]); 
+                window.location.href = window.location.href.split('#')[0] + pixelString;
+                alert("Data Sent!");
+}
+           </script>  
+     </head>
+
+     <body onload="printBtn();"> <!--Make sure you have javascript enabled!-->
+
+
+     </body>
+</html>
