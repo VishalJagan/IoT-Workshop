@@ -20,6 +20,7 @@
 #include <WiFi101.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include "index.h"
 #include "arduino_secrets.h" 
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
 char ssid[] = SECRET_SSID;        // your network SSID (name)
@@ -132,9 +133,12 @@ void loop() {
             client.println();
 
             // the content of the HTTP response follows the header:
-            client.print("Click <a href=\"/H\">here</a> turn the LED on<br>");
-            client.print("Click <a href=\"/L\">here</a> turn the LED off<br>");
-
+            //client.print("Click <a href=\"/H\">here</a> turn the LED on<br>");
+            //client.print("Click <a href=\"/L\">here</a> turn the LED off<br>");
+            client.print(MAIN_page);
+            client.print(MAIN_page2);
+            client.print(MAIN_page3);
+            client.print(MAIN_page4);
             // The HTTP response ends with another blank line:
             client.println();
             
@@ -149,7 +153,7 @@ void loop() {
           currentLine += c;      // add it to the end of the currentLine
         }
 
-
+        Serial.println(currentLine);
         if (currentLine.endsWith("HTTP/1.1")) { //String of 0 and 1 here
           int startIndex = currentLine.indexOf("/");
           int endIndex = currentLine.indexOf("HTTP/1.1");
@@ -168,7 +172,7 @@ void changeOLED(String inputData){
   String dataToSet = "";
   for(int q = 0; q < inputData.length(); q++){ //Remove commas from Javascript form
     if(inputData[q] != ','){
-      dataToSet[q] = inputData[q];
+      dataToSet += inputData[q];
     }else{
       Serial.println("REMOVED A COMMA");
     }
