@@ -6,6 +6,7 @@ Loading the sketch into the Adafruit Feather M0 Wifi will make it create a new h
 This particular example acts on data passed back from the HTML as URL parameters, and proceeds to use the returned array as a basis for illuminating pixels on a FeatherWing OLED display (black and white version).
 
 Further exercises could include:
+
 -Synchronizing the data back and forth between the FeatherWing and HTML page (currently it is just one way)
 
 -Allow multiple devices to add to the FeatherWing simultaneously (not overwriting the previous one)
