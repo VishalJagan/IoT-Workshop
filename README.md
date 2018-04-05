@@ -7,5 +7,7 @@ This particular example acts on data passed back from the HTML as URL parameters
 
 Further exercises could include:
 -Synchronizing the data back and forth between the FeatherWing and HTML page (currently it is just one way)
+
 -Allow multiple devices to add to the FeatherWing simultaneously (not overwriting the previous one)
+
 -Changing the drawing algorithm to be more efficient (such as recognizing lines and using drawLine())
