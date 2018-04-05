@@ -5,7 +5,7 @@ const char MAIN_page[] PROGMEM = R"=====(
      <title>Designhub IoT Workshop</title>
 
            <script>
-            window.location.href += "#";
+            
               var numRows = 128;
               var numCols = 32;
               
@@ -81,12 +81,12 @@ else
                   for (var i = 0; i < listOfButtons.length; i++) {
                     
                     if(listOfButtons[i].value == '0'){
-                      pixelString[i] = '0';
+                      pixelString[i] = 'L';
                     }
                   else
                   {
 
-                    pixelString[i] = '1';
+                    pixelString[i] = 'H';
                   }
 
 )=====";
@@ -94,8 +94,8 @@ else
 const char MAIN_page4[] PROGMEM = R"=====(
                   
                 }
-                pixelString = '#' + pixelString.toString();
-                window.location.href = window.location.href.split('#')[0] + pixelString;
+                pixelString = '' + pixelString.toString();
+                window.location.href = window.location.href.split('/')[0] + pixelString;
                 alert("Data Sent!");
 }
            </script>  

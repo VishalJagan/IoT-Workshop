@@ -135,6 +135,7 @@ void loop() {
             // the content of the HTTP response follows the header:
             //client.print("Click <a href=\"/H\">here</a> turn the LED on<br>");
             //client.print("Click <a href=\"/L\">here</a> turn the LED off<br>");
+            //Have to split up otherwise have errors.
             client.print(MAIN_page);
             client.print(MAIN_page2);
             client.print(MAIN_page3);
@@ -153,11 +154,11 @@ void loop() {
           currentLine += c;      // add it to the end of the currentLine
         }
 
-        Serial.println(currentLine);
-        if (currentLine.endsWith("HTTP/1.1")) { //String of 0 and 1 here
+        
+        if (currentLine.startsWith("GET /")) { //String of 0 and 1 here
           int startIndex = currentLine.indexOf("/");
           int endIndex = currentLine.indexOf("HTTP/1.1");
-          Serial.println("Sending this -->"+currentLine.substring(startIndex+1, endIndex) + "<--");
+          //Serial.println("Sending this -->"+currentLine.substring(startIndex+1, endIndex) + "<--");
           changeOLED(currentLine.substring(startIndex+1, endIndex));
         }
       }
@@ -174,16 +175,15 @@ void changeOLED(String inputData){
     if(inputData[q] != ','){
       dataToSet += inputData[q];
     }else{
-      Serial.println("REMOVED A COMMA");
+      //Serial.println("REMOVED A COMMA");
     }
   }
-  Serial.println(inputData);
-  Serial.println(dataToSet);
+  //Serial.println(inputData);
+  //Serial.println(dataToSet);
   for(int i=0; i < dataToSet.length(); i++){
-      int yCoord = i / 32;
-      int xCoord = i - yCoord;
-      //Serial.println("lookin at " + String(xCoord) + "," + String(yCoord) + " with value " + String(dataToSet[i]));
-    if(dataToSet[i] == '1'){
+      int xCoord = i / 32;
+      int yCoord = i - yCoord;
+    if(dataToSet[i] == 'H'){
       display.drawPixel(xCoord, yCoord,1);
     }else{
       display.drawPixel(xCoord, yCoord,0);
